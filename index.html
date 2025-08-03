@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        body.dark-theme {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-theme header {
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid #000;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .theme-toggle {
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .about-section {
+            padding: 60px 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .skill-tag {
+            background-color: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        body.dark-theme .skill-tag {
+            background-color: #333;
+        }
+
+        .portfolio-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .video-item {
+            position: relative;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            background-color: #000;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        body.dark-theme .video-container {
+            border: 2px solid #444;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        body.dark-theme .video-info p {
+            color: #aaa;
+        }
+
+        .video-description {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        body.dark-theme .video-description {
+            background-color: #111;
+            border: 1px solid #333;
+        }
+
+        .contact-section {
+            padding: 60px 0;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .contact-link {
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .contact-link:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        body.dark-theme .contact-link:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+
+        body.dark-theme footer {
+            border-top: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .about-section h2 {
+                font-size: 28px;
+            }
+            
+            .about-section p {
+                font-size: 16px;
+            }
+            
+            .contact-section h2 {
+                font-size: 28px;
+            }
+            
+            .contact-section p {
+                font-size: 16px;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ART PORTFOLIO - ERIK CHECO JR </div>
+            <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        </header>
+
+        <section class="hero">
+            <h1>Creative Art Portfolio</h1>
+            <p>Showcasing innovative artworks through dynamic video presentations</p>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2>About This Collection</h2>
+            <p>Welcome to my artistic journey captured through the lens of digital creativity. This portfolio represents a fusion of passion for animation and technical expertise in industry-standard software.</p>
+            <p>I specialize in creating captivating animations using Blender, After Effects, Adobe Premiere, and Nuke. While my heart lies in bringing Lego creations to life through animation, my experience spans across various animation styles and techniques.</p>
+            <p>Each project in this collection demonstrates not just technical proficiency, but also storytelling ability and attention to detail that transforms simple concepts into compelling visual narratives.</p>
+            
+            <div class="skills">
+                <div class="skill-tag">Blender 3D Animation</div>
+                <div class="skill-tag">After Effects Motion Graphics</div>
+                <div class="skill-tag">Adobe Premiere Editing</div>
+                <div class="skill-tag">Nuke Compositing</div>
+                <div class="skill-tag">Lego Animation</div>
+                <div class="skill-tag">Character Animation</div>
+            </div>
+        </section>
+
+        <section class="portfolio-section">
+            <h2 class="section-title">Featured Works</h2>
+            
+            <!-- Video Grid Section -->
+            <div class="video-grid">
+                <!-- Video Item 1 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="C:\Users\Steven\Documents\Bebe site\Screenshot 2025-08-02 185832.png"
+                            <source src="c:\Users\Steven\Documents\Bebe site\SpiderMan parkour test 2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Spiderman in the allways</h3>
+                        <p>An Animated short of Spiderman in an allyway.</p>
+                    </div>
+                    <div class="video-description">
+                        Animated in Blender and added sound effects in Adobe Premiere Pro.
+                    </div>
+                </div>
+
+                <!-- Video Item 2 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="C:\Users\Steven\Documents\Bebe site\Screenshot 2025-08-02 190615.png">
+                            <source src="C:\Users\Steven\Documents\Bebe site\Spider-Man Parkour Test Blender Animation.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>An Animated short of spiderman swining around buildings</h3>
+                        <p>Animated in Blender and added sound effects in Adobe Premiere Pro.</p>
+                    </div>
+                    <div class="video-description">
+                    Animated in Blender and added sound effects in Adobe Premiere Pro.
+                    </div>
+                </div>
+
+                <!-- Video Item 3 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="C:\Users\Steven\Documents\Bebe site\Screenshot 2025-08-02 225545.png">
+                            <source src="C:\Users\Steven\Documents\Bebe site\Sackboy walk animation Test0001-0250.mkv" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>After Effects Motion Design</h3>
+                        <p>Dynamic motion graphics compilation showcasing title sequences and visual effects.</p>
+                    </div>
+                    <div class="video-description">
+                        A collection of motion graphics projects created with After Effects, demonstrating skills in typography animation, particle systems, and kinetic typography. Each piece was carefully timed and color-graded for maximum visual impact.
+                    </div>
+                </div>
+
+                <!-- Video Item 4 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="path/to/thumbnail4.jpg">
+                            <source src="path/to/video4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Premiere Pro Editing Portfolio</h3>
+                        <p>Professional video editing reel featuring narrative and documentary style projects.</p>
+                    </div>
+                    <div class="video-description">
+                        This compilation demonstrates advanced editing techniques using Adobe Premiere Pro, including color correction, audio mixing, and narrative pacing. Projects range from short films to documentary pieces, showcasing versatility in storytelling approaches.
+                    </div>
+                </div>
+
+                <!-- Video Item 5 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="path/to/thumbnail5.jpg">
+                            <source src="path/to/video5.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Nuke Compositing Showcase</h3>
+                        <p>Professional compositing work featuring complex visual effects and seamless integration.</p>
+                    </div>
+                    <div class="video-description">
+                        Advanced compositing work created with Nuke, showcasing skills in keying, tracking, and digital environment integration. These projects demonstrate the ability to seamlessly blend live-action footage with digital elements for cinematic results.
+                    </div>
+                </div>
+
+                <!-- Video Item 6 -->
+                <div class="video-item">
+                    <div class="video-container">
+                        <video controls poster="path/to/thumbnail6.jpg">
+                            <source src="path/to/video6.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Creative Experimentation</h3>
+                        <p>Experimental animation combining multiple software tools for unique visual results.</p>
+                    </div>
+                    <div class="video-description">
+                        A showcase of experimental animation techniques that push the boundaries of traditional workflows. This project combines Blender 3D elements, After Effects motion graphics, and Nuke compositing to create a visually striking piece that demonstrates creative problem-solving.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>Get In Touch</h2>
+            <p>Interested in collaborating or learning more about my work? Feel free to reach out through any of the platforms below.</p>
+            <div class="contact-links">
+                <a href="mailto:erikjrcheco@gmail.com" class="contact-link">
+                    📧 Email
+                </a>
+                <a href="https://www.linkedin.com/in/erik-checo-811930347/" target="_blank" class="contact-link">
+                    💼 LinkedIn
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2023 Art Portfolio. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+    </script>
+</body>
+</html>
